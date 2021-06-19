@@ -6,12 +6,13 @@
 
 def display_inventory(inventory):
     """Display the contents of the inventory in a simple way."""
-    pass
+    for item, count in inventory.items():
+        print(f"{item}: {count}")
 
 
 def add_to_inventory(inventory, added_items):
     """Add to the inventory dictionary a list of items from added_items."""
-    pass
+    
 
 
 def remove_from_inventory(inventory, removed_items):
