@@ -71,5 +71,13 @@ def import_inventory(inventory, filename):
 
 def export_inventory(inventory, filename):
     """Export the inventory into a CSV file."""
-
-    pass
+    try:
+        with open(filename, "wt") as file:
+            outputs = []
+            for item, count in inventory.items():
+                for i in range(count):
+                    outputs.append(item)
+            outputs_with_commas = ",".join(outputs)
+            file.write(outputs_with_commas)
+    except PermissionError:
+        print(f"You don't have permission creating file '{filename}'!")
