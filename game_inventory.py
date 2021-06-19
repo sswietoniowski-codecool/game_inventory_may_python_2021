@@ -60,8 +60,13 @@ def print_table(inventory, order=None):
 
 def import_inventory(inventory, filename):
     """Import new inventory items from a CSV file."""
-
-    pass
+    try:
+        with open(filename, "rt") as file:
+            for line in file:
+                items_to_add = line.split(",")
+                add_to_inventory(inventory, items_to_add)
+    except FileNotFoundError:
+        print(f"File '{filename}' not found!")
 
 
 def export_inventory(inventory, filename):
