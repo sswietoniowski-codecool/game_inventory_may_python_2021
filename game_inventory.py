@@ -25,14 +25,38 @@ def remove_from_inventory(inventory, removed_items):
                 del inventory[item]
 
 
-def print_table(inventory, order):
+def print_table(inventory, order=None):
     """
     Display the contents of the inventory in an ordered, well-organized table with
     each column right-aligned.
     """
-
-    pass
-
+    item_title = "item name"
+    count_title = "count"
+    separator = " | "
+    dash_char = "-"
+    max_width_item = max([len(str(item)) for item in inventory.keys()] + [len(item_title)])
+    max_width_count = max([len(str(count)) for count in inventory.values()] + [len(count_title)])
+    horizontal_line = dash_char * (max_width_item + len(separator) + max_width_count)
+    
+    # header
+    print(horizontal_line)
+    print(f"{item_title:>{max_width_item}}{separator}{count_title:>{max_width_count}}")
+    print(horizontal_line)
+    
+    # rows
+    inventory_items = []
+    if order == "count,asc":
+        inventory_items = sorted(inventory.items(), key=lambda tuple: tuple[1], reverse=False)
+    elif order == "count,desc":
+        inventory_items = sorted(inventory.items(), key=lambda tuple: tuple[1], reverse=True)
+    else:
+        inventory_items = inventory.items()
+    
+    for item, count in inventory_items:
+        print(f"{item:>{max_width_item}}{separator}{count:>{max_width_count}}")
+        
+    # footer
+    print(horizontal_line)
 
 def import_inventory(inventory, filename):
     """Import new inventory items from a CSV file."""
